@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Swaply Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 text-gray-800">
+
+<!-- LOGIN OVERLAY -->
+<div id="loginBox" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
+  <div class="bg-white p-8 rounded-2xl w-96 shadow-xl">
+    <h2 class="text-2xl font-bold mb-4">Admin Login</h2>
+
+    <input id="adminPass" type="password"
+      placeholder="Enter admin password"
+      class="w-full p-3 border rounded-xl mb-4"/>
+
+    <button onclick="loginAdmin()"
+      class="w-full bg-green-600 text-white py-3 rounded-xl hover:bg-green-700">
+      Login
+    </button>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="bg-white shadow-md p-4 flex justify-between items-center">
+  <h1 class="text-2xl font-bold text-green-600">Swaply Admin</h1>
+  <button onclick="logout()"
+    class="bg-red-600 text-white px-4 py-2 rounded-xl">
+    Logout
+  </button>
+</header>
+
+<!-- CONTENT -->
+<div class="max-w-7xl mx-auto p-6">
+
+  <h2 class="text-3xl font-bold mb-6">All Uploaded Items</h2>
+
+  <div id="items" class="grid md:grid-cols-3 gap-6"></div>
+
+</div>
+
+<script>
+
+const API = "https://traderbackend.onrender.com/items";
+const ADMIN_KEY = "swaply254";
+
+let isAdmin = false;
+
+// LOGIN
+function loginAdmin() {
+  const pass = document.getElementById("adminPass").value;
+
+  if (pass === ADMIN_KEY) {
+    isAdmin = true;
+    document.getElementById("loginBox").style.display = "none";
+    loadItems();
+  } else {
+    alert("Wrong password");
+  }
+}
+
+// LOGOUT
+function logout() {
+  location.reload();
+}
+
+// LOAD ITEMS
+async function loadItems() {
+
+  const res = await fetch(API);
+  const items = await res.json();
+
+  const container = document.getElementById("items");
+  container.innerHTML = "";
+
+  items.reverse().forEach(item => {
+
+    container.innerHTML += `
+      <div class="bg-white p-4 rounded-2xl shadow">
+
+        ${item.image ? `
+          <img src="${item.image}" class="w-full h-48 object-cover rounded-xl mb-3"/>
+        ` : ""}
+
+        <input id="name-${item._id}" value="${item.name}"
+          class="w-full p-2 border rounded mb-2"/>
+
+        <input id="price-${item._id}" value="${item.price || 0}"
+          class="w-full p-2 border rounded mb-2"/>
+
+        <p class="text-sm text-gray-500 mb-2">${item.description}</p>
+
+        <p class="text-sm mb-2">Status: 
+          <span class="${item.sold ? 'text-red-600' : 'text-green-600'}">
+            ${item.sold ? "Sold" : "Available"}
+          </span>
+        </p>
+
+        <div class="flex flex-wrap gap-2">
+
+          <button onclick="updateItem('${item._id}')"
+            class="bg-blue-600 text-white px-3 py-2 rounded-xl">
+            Save
+          </button>
+
+          <button onclick="markSold('${item._id}')"
+            class="bg-yellow-500 text-white px-3 py-2 rounded-xl">
+            Sold
+          </button>
+
+          <button onclick="deleteItem('${item._id}')"
+            class="bg-red-600 text-white px-3 py-2 rounded-xl">
+            Delete
+          </button>
+
+        </div>
+
+      </div>
+    `;
+  });
+}
+
+// UPDATE ITEM
+async function updateItem(id) {
+
+  const name = document.getElementById("name-" + id).value;
+  const price = document.getElementById("price-" + id).value;
+
+  await fetch(API + "/" + id, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      "admin": ADMIN_KEY
+    },
+    body: JSON.stringify({ name, price })
+  });
+
+  loadItems();
+}
+
+// DELETE ITEM
+async function deleteItem(id) {
+
+  if (!confirm("Delete this item?")) return;
+
+  await fetch(API + "/" + id, {
+    method: "DELETE",
+    headers: {
+      "admin": ADMIN_KEY
+    }
+  });
+
+  loadItems();
+}
+
+// MARK SOLD
+async function markSold(id) {
+
+  await fetch(API + "/" + id, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      "admin": ADMIN_KEY
+    },
+    body: JSON.stringify({ sold: true })
+  });
+
+  loadItems();
+}
+
+</script>
+
+</body>
+</html>
