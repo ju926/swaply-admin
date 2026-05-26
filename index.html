@@ -9,7 +9,7 @@
 
 <body class="bg-gray-100 text-gray-800">
 
-<!-- LOGIN OVERLAY -->
+<!-- LOGIN MODAL -->
 <div id="loginBox" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
   <div class="bg-white p-8 rounded-2xl w-96 shadow-xl">
     <h2 class="text-2xl font-bold mb-4">Admin Login</h2>
@@ -22,12 +22,17 @@
       class="w-full bg-green-600 text-white py-3 rounded-xl hover:bg-green-700">
       Login
     </button>
+
+    <p class="text-sm text-gray-500 mt-3">
+      Session will stay logged in until you logout.
+    </p>
   </div>
 </div>
 
 <!-- HEADER -->
 <header class="bg-white shadow-md p-4 flex justify-between items-center">
   <h1 class="text-2xl font-bold text-green-600">Swaply Admin</h1>
+
   <button onclick="logout()"
     class="bg-red-600 text-white px-4 py-2 rounded-xl">
     Logout
@@ -37,7 +42,7 @@
 <!-- CONTENT -->
 <div class="max-w-7xl mx-auto p-6">
 
-  <h2 class="text-3xl font-bold mb-6">All Uploaded Items</h2>
+  <h2 class="text-3xl font-bold mb-6">All Items</h2>
 
   <div id="items" class="grid md:grid-cols-3 gap-6"></div>
 
@@ -48,14 +53,22 @@
 const API = "https://traderbackend.onrender.com/items";
 const ADMIN_KEY = "swaply254";
 
-let isAdmin = false;
+// ================= CHECK SESSION ON LOAD =================
+window.onload = () => {
+  const savedLogin = localStorage.getItem("swaply_admin");
 
-// LOGIN
+  if (savedLogin === "true") {
+    document.getElementById("loginBox").style.display = "none";
+    loadItems();
+  }
+};
+
+// ================= LOGIN =================
 function loginAdmin() {
   const pass = document.getElementById("adminPass").value;
 
   if (pass === ADMIN_KEY) {
-    isAdmin = true;
+    localStorage.setItem("swaply_admin", "true"); // 🔥 persist login
     document.getElementById("loginBox").style.display = "none";
     loadItems();
   } else {
@@ -63,12 +76,13 @@ function loginAdmin() {
   }
 }
 
-// LOGOUT
+// ================= LOGOUT =================
 function logout() {
+  localStorage.removeItem("swaply_admin"); // remove session
   location.reload();
 }
 
-// LOAD ITEMS
+// ================= LOAD ITEMS =================
 async function loadItems() {
 
   const res = await fetch(API);
@@ -92,15 +106,16 @@ async function loadItems() {
         <input id="price-${item._id}" value="${item.price || 0}"
           class="w-full p-2 border rounded mb-2"/>
 
-        <p class="text-sm text-gray-500 mb-2">${item.description}</p>
+        <p class="text-sm text-gray-500 mb-2">${item.description || ""}</p>
 
-        <p class="text-sm mb-2">Status: 
+        <p class="text-sm mb-2">
+          Status:
           <span class="${item.sold ? 'text-red-600' : 'text-green-600'}">
             ${item.sold ? "Sold" : "Available"}
           </span>
         </p>
 
-        <div class="flex flex-wrap gap-2">
+        <div class="flex gap-2 flex-wrap">
 
           <button onclick="updateItem('${item._id}')"
             class="bg-blue-600 text-white px-3 py-2 rounded-xl">
@@ -124,7 +139,7 @@ async function loadItems() {
   });
 }
 
-// UPDATE ITEM
+// ================= UPDATE ITEM =================
 async function updateItem(id) {
 
   const name = document.getElementById("name-" + id).value;
@@ -142,7 +157,7 @@ async function updateItem(id) {
   loadItems();
 }
 
-// DELETE ITEM
+// ================= DELETE ITEM =================
 async function deleteItem(id) {
 
   if (!confirm("Delete this item?")) return;
@@ -157,7 +172,7 @@ async function deleteItem(id) {
   loadItems();
 }
 
-// MARK SOLD
+// ================= MARK SOLD =================
 async function markSold(id) {
 
   await fetch(API + "/" + id, {
