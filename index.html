@@ -1,530 +1,311 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Swaply Admin Dashboard</title>
+  <title>Swaply Admin Portal</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
   <style>
-
-    *{
-      font-family:'Inter',sans-serif;
-    }
-
     body{
-      overflow-x:hidden;
       background:#f3f4f6;
     }
 
-    .sidebar{
-      width:280px;
+    .glass{
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px);
     }
 
-    .card-hover{
-      transition:0.3s;
+    .sidebar{
+      background: linear-gradient(to bottom,#111827,#1f2937);
     }
 
     .card-hover:hover{
-      transform:translateY(-6px);
+      transform: translateY(-4px);
+      transition: 0.3s;
     }
-
-    .gradient{
-      background:linear-gradient(to right,#16a34a,#22c55e);
-    }
-
   </style>
-
 </head>
 
-<body>
+<body class="text-gray-800">
 
+<!-- MAIN -->
 <div class="flex min-h-screen">
 
   <!-- SIDEBAR -->
-  <aside class="sidebar bg-black text-white p-8 hidden lg:flex flex-col justify-between">
+  <aside class="sidebar w-72 text-white hidden lg:flex flex-col">
 
-    <div>
+    <div class="p-8 border-b border-gray-700">
+      <h1 class="text-4xl font-black text-green-400">
+        Swaply
+      </h1>
 
-      <div class="flex items-center gap-4 mb-14">
-
-        <div class="w-14 h-14 rounded-2xl bg-green-600 flex items-center justify-center text-2xl font-black">
-          S
-        </div>
-
-        <div>
-          <h1 class="text-3xl font-black">
-            Swaply
-          </h1>
-
-          <p class="text-gray-400 text-sm">
-            Admin Dashboard
-          </p>
-        </div>
-
-      </div>
-
-      <nav class="space-y-4">
-
-        <a href="#"
-        class="flex items-center gap-4 bg-green-600 px-5 py-4 rounded-2xl font-semibold">
-
-          📊 Dashboard
-
-        </a>
-
-        <a href="#"
-        class="flex items-center gap-4 hover:bg-gray-900 px-5 py-4 rounded-2xl transition">
-
-          📦 Listings
-
-        </a>
-
-        <a href="#"
-        class="flex items-center gap-4 hover:bg-gray-900 px-5 py-4 rounded-2xl transition">
-
-          👥 Users
-
-        </a>
-
-        <a href="#"
-        class="flex items-center gap-4 hover:bg-gray-900 px-5 py-4 rounded-2xl transition">
-
-          💬 Chats
-
-        </a>
-
-        <a href="#"
-        class="flex items-center gap-4 hover:bg-gray-900 px-5 py-4 rounded-2xl transition">
-
-          🚨 Reports
-
-        </a>
-
-        <a href="#"
-        class="flex items-center gap-4 hover:bg-gray-900 px-5 py-4 rounded-2xl transition">
-
-          📈 Analytics
-
-        </a>
-
-        <a href="#"
-        class="flex items-center gap-4 hover:bg-gray-900 px-5 py-4 rounded-2xl transition">
-
-          ⚙️ Settings
-
-        </a>
-
-      </nav>
-
+      <p class="text-gray-400 mt-2">
+        Marketplace Admin Portal
+      </p>
     </div>
 
-    <div>
+    <nav class="flex-1 p-6 space-y-3">
 
-      <div class="bg-gray-900 rounded-3xl p-6">
+      <a href="#" class="block bg-green-600 px-5 py-4 rounded-2xl font-semibold">
+        Dashboard
+      </a>
 
-        <div class="flex items-center gap-4">
+      <a href="#upload" class="block hover:bg-gray-800 px-5 py-4 rounded-2xl transition">
+        Upload Item
+      </a>
 
-          <img
-          src="https://i.pravatar.cc/100"
-          class="w-14 h-14 rounded-2xl object-cover">
+      <a href="#items" class="block hover:bg-gray-800 px-5 py-4 rounded-2xl transition">
+        Manage Items
+      </a>
 
-          <div>
-            <h3 class="font-bold">
-              Admin
-            </h3>
+      <a href="#" class="block hover:bg-gray-800 px-5 py-4 rounded-2xl transition">
+        Users
+      </a>
 
-            <p class="text-gray-400 text-sm">
-              Marketplace Owner
-            </p>
-          </div>
+      <a href="#" class="block hover:bg-gray-800 px-5 py-4 rounded-2xl transition">
+        Reports
+      </a>
 
-        </div>
+      <a href="#" class="block hover:bg-gray-800 px-5 py-4 rounded-2xl transition">
+        Marketplace Analytics
+      </a>
 
-      </div>
+      <a href="#" class="block hover:bg-gray-800 px-5 py-4 rounded-2xl transition">
+        Chat Monitoring
+      </a>
 
+      <a href="#" class="block hover:bg-gray-800 px-5 py-4 rounded-2xl transition">
+        Settings
+      </a>
+
+    </nav>
+
+    <div class="p-6 border-t border-gray-700">
+      <button
+        class="w-full bg-red-500 hover:bg-red-600 py-4 rounded-2xl font-bold">
+        Logout
+      </button>
     </div>
 
   </aside>
 
-  <!-- MAIN -->
+  <!-- CONTENT -->
   <main class="flex-1">
 
     <!-- TOPBAR -->
-    <header class="bg-white border-b border-gray-200 px-8 py-6 flex items-center justify-between">
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
 
-      <div>
+        <div>
+          <h2 class="text-3xl font-black">
+            Admin Dashboard
+          </h2>
 
-        <h2 class="text-4xl font-black">
-          Dashboard
-        </h2>
+          <p class="text-gray-500">
+            Upload and manage marketplace products
+          </p>
+        </div>
 
-        <p class="text-gray-500 mt-2">
-          Welcome back to Swaply admin panel
-        </p>
+        <div class="flex items-center gap-4">
+
+          <div class="bg-green-100 text-green-700 px-5 py-2 rounded-full font-semibold">
+            Admin Online
+          </div>
+
+          <img
+            src="https://ui-avatars.com/api/?name=Swaply+Admin&background=16a34a&color=fff"
+            class="w-14 h-14 rounded-full"
+          />
+
+        </div>
 
       </div>
-
-      <div class="flex items-center gap-5">
-
-        <button class="w-14 h-14 rounded-2xl bg-gray-100 text-2xl">
-          🔔
-        </button>
-
-        <button class="gradient text-white px-7 py-4 rounded-2xl font-bold shadow-xl">
-          + Add Listing
-        </button>
-
-      </div>
-
     </header>
 
-    <!-- CONTENT -->
-    <section class="p-8">
+    <!-- STATS -->
+    <section class="max-w-7xl mx-auto px-6 py-10">
 
-      <!-- STATS -->
-      <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-8 mb-10">
+      <div class="grid md:grid-cols-4 gap-6">
 
-        <div class="card-hover bg-white rounded-[30px] p-8 shadow-sm">
-
-          <div class="flex items-center justify-between mb-6">
-
-            <div>
-
-              <p class="text-gray-500 font-medium">
-                Total Listings
-              </p>
-
-              <h3 class="text-5xl font-black mt-3">
-                1,240
-              </h3>
-
-            </div>
-
-            <div class="w-20 h-20 rounded-3xl bg-green-100 flex items-center justify-center text-4xl">
-              📦
-            </div>
-
-          </div>
-
-          <p class="text-green-600 font-semibold">
-            +12% this month
-          </p>
-
+        <div class="glass rounded-3xl p-7 shadow-lg card-hover">
+          <p class="text-gray-500">Total Listings</p>
+          <h3 class="text-5xl font-black mt-3">128</h3>
         </div>
 
-        <div class="card-hover bg-white rounded-[30px] p-8 shadow-sm">
-
-          <div class="flex items-center justify-between mb-6">
-
-            <div>
-
-              <p class="text-gray-500 font-medium">
-                Active Users
-              </p>
-
-              <h3 class="text-5xl font-black mt-3">
-                8,420
-              </h3>
-
-            </div>
-
-            <div class="w-20 h-20 rounded-3xl bg-blue-100 flex items-center justify-center text-4xl">
-              👥
-            </div>
-
-          </div>
-
-          <p class="text-blue-600 font-semibold">
-            +28% this week
-          </p>
-
+        <div class="glass rounded-3xl p-7 shadow-lg card-hover">
+          <p class="text-gray-500">Users</p>
+          <h3 class="text-5xl font-black mt-3">3.4K</h3>
         </div>
 
-        <div class="card-hover bg-white rounded-[30px] p-8 shadow-sm">
-
-          <div class="flex items-center justify-between mb-6">
-
-            <div>
-
-              <p class="text-gray-500 font-medium">
-                Live Chats
-              </p>
-
-              <h3 class="text-5xl font-black mt-3">
-                356
-              </h3>
-
-            </div>
-
-            <div class="w-20 h-20 rounded-3xl bg-purple-100 flex items-center justify-center text-4xl">
-              💬
-            </div>
-
-          </div>
-
-          <p class="text-purple-600 font-semibold">
-            Active now
-          </p>
-
+        <div class="glass rounded-3xl p-7 shadow-lg card-hover">
+          <p class="text-gray-500">Chats</p>
+          <h3 class="text-5xl font-black mt-3">892</h3>
         </div>
 
-        <div class="card-hover bg-white rounded-[30px] p-8 shadow-sm">
-
-          <div class="flex items-center justify-between mb-6">
-
-            <div>
-
-              <p class="text-gray-500 font-medium">
-                Revenue
-              </p>
-
-              <h3 class="text-5xl font-black mt-3">
-                KSh 2.4M
-              </h3>
-
-            </div>
-
-            <div class="w-20 h-20 rounded-3xl bg-yellow-100 flex items-center justify-center text-4xl">
-              💰
-            </div>
-
-          </div>
-
-          <p class="text-yellow-600 font-semibold">
-            Marketplace growth
-          </p>
-
+        <div class="glass rounded-3xl p-7 shadow-lg card-hover">
+          <p class="text-gray-500">Marketplace Growth</p>
+          <h3 class="text-5xl font-black mt-3 text-green-600">
+            +28%
+          </h3>
         </div>
 
       </div>
 
-      <!-- ADD LISTING -->
-      <div class="grid xl:grid-cols-3 gap-10">
+    </section>
 
-        <!-- FORM -->
-        <div class="xl:col-span-2 bg-white rounded-[35px] p-10 shadow-sm">
+    <!-- UPLOAD SECTION -->
+    <section id="upload" class="max-w-7xl mx-auto px-6 pb-12">
 
-          <div class="flex items-center justify-between mb-10">
+      <div class="bg-white rounded-[35px] shadow-2xl overflow-hidden">
 
-            <div>
+        <div class="bg-gradient-to-r from-green-600 to-emerald-500 p-10 text-white">
 
-              <h3 class="text-4xl font-black">
-                Add New Listing
-              </h3>
+          <h2 class="text-5xl font-black mb-4">
+            Upload Marketplace Item
+          </h2>
 
-              <p class="text-gray-500 mt-2">
-                Upload marketplace products manually
-              </p>
-
-            </div>
-
-            <div class="w-20 h-20 rounded-3xl bg-green-100 flex items-center justify-center text-4xl">
-              🚀
-            </div>
-
-          </div>
-
-          <form id="listingForm" class="space-y-7">
-
-            <div class="grid md:grid-cols-2 gap-6">
-
-              <input
-              type="text"
-              id="title"
-              placeholder="Product title"
-              class="w-full bg-gray-100 rounded-2xl p-5 outline-none focus:ring-2 focus:ring-green-500">
-
-              <input
-              type="number"
-              id="price"
-              placeholder="Price"
-              class="w-full bg-gray-100 rounded-2xl p-5 outline-none focus:ring-2 focus:ring-green-500">
-
-            </div>
-
-            <textarea
-            id="description"
-            placeholder="Product description"
-            class="w-full h-40 bg-gray-100 rounded-2xl p-5 outline-none focus:ring-2 focus:ring-green-500"></textarea>
-
-            <div class="grid md:grid-cols-2 gap-6">
-
-              <select
-              id="category"
-              class="w-full bg-gray-100 rounded-2xl p-5 outline-none focus:ring-2 focus:ring-green-500">
-
-                <option>Select Category</option>
-                <option>Electronics</option>
-                <option>Fashion</option>
-                <option>Furniture</option>
-                <option>Books</option>
-                <option>Vehicles</option>
-
-              </select>
-
-              <input
-              type="text"
-              id="location"
-              placeholder="Location"
-              class="w-full bg-gray-100 rounded-2xl p-5 outline-none focus:ring-2 focus:ring-green-500">
-
-            </div>
-
-            <input
-            type="text"
-            id="image"
-            placeholder="Paste Image URL"
-            class="w-full bg-gray-100 rounded-2xl p-5 outline-none focus:ring-2 focus:ring-green-500">
-
-            <button
-            type="submit"
-            class="w-full gradient text-white py-5 rounded-2xl text-xl font-black shadow-xl">
-
-              Publish Listing
-
-            </button>
-
-          </form>
+          <p class="text-green-100 text-lg">
+            Add products manually and publish them instantly to the public marketplace.
+          </p>
 
         </div>
 
-        <!-- SIDE -->
-        <div class="space-y-8">
+        <div class="p-10">
 
-          <!-- RECENT -->
-          <div class="bg-white rounded-[35px] p-8 shadow-sm">
+          <form id="uploadForm" class="grid md:grid-cols-2 gap-8">
 
-            <div class="flex items-center justify-between mb-8">
-
-              <h3 class="text-2xl font-black">
-                Recent Listings
-              </h3>
-
-              <span class="text-green-600 font-bold">
-                View All
-              </span>
-
-            </div>
-
+            <!-- LEFT -->
             <div class="space-y-6">
 
-              <div class="flex items-center gap-4">
+              <div>
+                <label class="font-bold block mb-3">
+                  Item Name
+                </label>
 
-                <img
-                src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9"
-                class="w-20 h-20 rounded-2xl object-cover">
-
-                <div class="flex-1">
-
-                  <h4 class="font-black">
-                    iPhone 13
-                  </h4>
-
-                  <p class="text-gray-500 text-sm">
-                    Electronics
-                  </p>
-
-                </div>
-
-                <button class="text-red-500 font-bold">
-                  Delete
-                </button>
-
+                <input
+                  type="text"
+                  id="name"
+                  placeholder="Example: iPhone 13 Pro"
+                  class="w-full p-5 rounded-2xl border border-gray-300 focus:outline-none focus:ring-4 focus:ring-green-200"
+                />
               </div>
 
-              <div class="flex items-center gap-4">
+              <div>
+                <label class="font-bold block mb-3">
+                  Category
+                </label>
 
-                <img
-                src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e"
-                class="w-20 h-20 rounded-2xl object-cover">
+                <select
+                  id="category"
+                  class="w-full p-5 rounded-2xl border border-gray-300 focus:outline-none focus:ring-4 focus:ring-green-200"
+                >
+                  <option>Electronics</option>
+                  <option>Fashion</option>
+                  <option>Furniture</option>
+                  <option>Books</option>
+                  <option>Kitchen</option>
+                  <option>Gaming</option>
+                  <option>Vehicles</option>
+                </select>
+              </div>
 
-                <div class="flex-1">
+              <div>
+                <label class="font-bold block mb-3">
+                  Price
+                </label>
 
-                  <h4 class="font-black">
-                    AirPods Max
-                  </h4>
+                <input
+                  type="number"
+                  id="price"
+                  placeholder="5000"
+                  class="w-full p-5 rounded-2xl border border-gray-300 focus:outline-none focus:ring-4 focus:ring-green-200"
+                />
+              </div>
 
-                  <p class="text-gray-500 text-sm">
-                    Audio
-                  </p>
+              <div>
+                <label class="font-bold block mb-3">
+                  Exchange Option
+                </label>
 
-                </div>
-
-                <button class="text-red-500 font-bold">
-                  Delete
-                </button>
-
+                <input
+                  type="text"
+                  id="wanted"
+                  placeholder="Swap for laptop, TV etc..."
+                  class="w-full p-5 rounded-2xl border border-gray-300 focus:outline-none focus:ring-4 focus:ring-green-200"
+                />
               </div>
 
             </div>
 
-          </div>
-
-          <!-- ACTIVITY -->
-          <div class="bg-black text-white rounded-[35px] p-8">
-
-            <h3 class="text-3xl font-black mb-8">
-              Marketplace Activity
-            </h3>
-
+            <!-- RIGHT -->
             <div class="space-y-6">
 
-              <div class="flex justify-between">
+              <div>
+                <label class="font-bold block mb-3">
+                  Description
+                </label>
 
-                <span class="text-gray-400">
-                  New Users
-                </span>
-
-                <span class="font-bold">
-                  +142
-                </span>
-
+                <textarea
+                  id="description"
+                  rows="7"
+                  placeholder="Describe the item..."
+                  class="w-full p-5 rounded-2xl border border-gray-300 focus:outline-none focus:ring-4 focus:ring-green-200"
+                ></textarea>
               </div>
 
-              <div class="flex justify-between">
+              <!-- MANUAL IMAGE URL -->
+              <div>
+                <label class="font-bold block mb-3">
+                  Product Image URL
+                </label>
 
-                <span class="text-gray-400">
-                  New Chats
-                </span>
-
-                <span class="font-bold">
-                  +86
-                </span>
-
+                <input
+                  type="text"
+                  id="image"
+                  placeholder="Paste image URL here..."
+                  class="w-full p-5 rounded-2xl border border-gray-300 focus:outline-none focus:ring-4 focus:ring-green-200"
+                />
               </div>
 
-              <div class="flex justify-between">
+              <div class="bg-gray-100 rounded-3xl p-6 border border-dashed border-gray-300">
 
-                <span class="text-gray-400">
-                  Reports
-                </span>
+                <h3 class="font-black text-xl mb-2">
+                  Image Tips
+                </h3>
 
-                <span class="font-bold text-red-400">
-                  12
-                </span>
+                <p class="text-gray-600 leading-relaxed">
+                  Upload your product images to:
+                </p>
 
-              </div>
+                <ul class="mt-4 text-gray-700 space-y-2">
+                  <li>• Cloudinary</li>
+                  <li>• Imgur</li>
+                  <li>• Postimages</li>
+                  <li>• Unsplash</li>
+                </ul>
 
-              <div class="flex justify-between">
-
-                <span class="text-gray-400">
-                  Listings Today
-                </span>
-
-                <span class="font-bold text-green-400">
-                  54
-                </span>
+                <p class="text-sm text-gray-500 mt-4">
+                  Then paste the direct image link above.
+                </p>
 
               </div>
 
             </div>
 
-          </div>
+            <!-- BUTTON -->
+            <div class="md:col-span-2">
+
+              <button
+                type="submit"
+                class="w-full bg-green-600 hover:bg-green-700 text-white py-6 rounded-3xl text-2xl font-black shadow-lg">
+                Publish Item To Marketplace
+              </button>
+
+            </div>
+
+          </form>
 
         </div>
 
@@ -532,65 +313,182 @@
 
     </section>
 
+    <!-- ITEMS -->
+    <section id="items" class="max-w-7xl mx-auto px-6 pb-20">
+
+      <div class="flex items-center justify-between mb-10">
+
+        <div>
+          <h2 class="text-4xl font-black">
+            Marketplace Listings
+          </h2>
+
+          <p class="text-gray-500 mt-2">
+            Recently uploaded marketplace products
+          </p>
+        </div>
+
+      </div>
+
+      <div
+        id="itemsContainer"
+        class="grid md:grid-cols-3 gap-8"
+      ></div>
+
+    </section>
+
   </main>
 
 </div>
 
+<!-- SCRIPT -->
 <script>
-
 const API = "https://traderbackend.onrender.com";
 
-document.getElementById("listingForm")
-.addEventListener("submit", async (e)=>{
+const itemsContainer = document.getElementById("itemsContainer");
+
+async function loadItems() {
+  try {
+    const res = await fetch(API + "/items");
+    const items = await res.json();
+
+    itemsContainer.innerHTML = "";
+
+    items.reverse().forEach(item => {
+
+      itemsContainer.innerHTML += `
+        <div class="bg-white rounded-[30px] overflow-hidden shadow-lg hover:shadow-2xl transition">
+
+          <img
+            src="${item.image || 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=1200&auto=format&fit=crop'}"
+            class="w-full h-64 object-cover"
+          />
+
+          <div class="p-7">
+
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="text-2xl font-black">
+                ${item.name}
+              </h3>
+
+              <span class="bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-bold">
+                ${item.category}
+              </span>
+            </div>
+
+            <p class="text-gray-600 mb-5 line-clamp-3">
+              ${item.description}
+            </p>
+
+            <div class="flex items-center justify-between mb-5">
+              <div>
+                <p class="text-gray-400 text-sm">
+                  Price
+                </p>
+
+                <h4 class="text-3xl font-black text-green-600">
+                  KSh ${item.price || 0}
+                </h4>
+              </div>
+
+              <div class="text-right">
+                <p class="text-gray-400 text-sm">
+                  Exchange
+                </p>
+
+                <p class="font-semibold">
+                  ${item.wanted || "Any"}
+                </p>
+              </div>
+            </div>
+
+            <button
+              onclick="deleteItem('${item._id}')"
+              class="w-full bg-red-500 hover:bg-red-600 text-white py-4 rounded-2xl font-bold">
+              Delete Item
+            </button>
+
+          </div>
+
+        </div>
+      `;
+    });
+
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+document.getElementById("uploadForm")
+.addEventListener("submit", async (e) => {
 
   e.preventDefault();
 
   const item = {
-
-    title: document.getElementById("title").value,
-    price: document.getElementById("price").value,
+    name: document.getElementById("name").value,
     description: document.getElementById("description").value,
     category: document.getElementById("category").value,
-    location: document.getElementById("location").value,
+    price: document.getElementById("price").value,
+    wanted: document.getElementById("wanted").value,
     image: document.getElementById("image").value
-
   };
 
-  try{
+  try {
 
-    const res = await fetch(`${API}/items`,{
-
-      method:"POST",
-
-      headers:{
-        "Content-Type":"application/json"
+    const res = await fetch(API + "/items", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
       },
-
       body: JSON.stringify(item)
-
     });
 
     if(res.ok){
 
-      alert("Listing published successfully!");
+      alert("✅ Item published successfully");
 
-      document.getElementById("listingForm").reset();
+      document.getElementById("uploadForm").reset();
 
-    }else{
+      loadItems();
 
-      alert("Failed to publish listing");
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: "smooth"
+      });
 
+    } else {
+      alert("❌ Failed to upload");
     }
 
-  }catch(err){
-
-    alert("Server error");
-
+  } catch(err){
+    alert("❌ Server error");
+    console.log(err);
   }
 
 });
 
+async function deleteItem(id){
+
+  if(!confirm("Delete this item?")) return;
+
+  try{
+
+    const res = await fetch(API + "/items/" + id,{
+      method:"DELETE"
+    });
+
+    if(res.ok){
+      loadItems();
+    }
+
+  }catch(err){
+    console.log(err);
+  }
+
+}
+
+loadItems();
 </script>
 
 </body>
-          </html>
+</html>
