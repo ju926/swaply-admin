@@ -89,17 +89,11 @@ Marketplace Control Center
 
 <div class="flex items-center gap-4">
 
-<div class="hidden md:flex items-center gap-3 bg-white px-5 py-3 rounded-2xl shadow-lg border">
-
-<img
-src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
-class="w-10 h-10 rounded-full"/>
-
-<div>
+<div class="bg-white px-5 py-3 rounded-2xl shadow-lg border">
 
 <h3 class="font-black text-gray-900">
 
-${currentUser?.username || "Admin"}
+<span id="adminName"></span>
 
 </h3>
 
@@ -108,8 +102,6 @@ ${currentUser?.username || "Admin"}
 Administrator
 
 </p>
-
-</div>
 
 </div>
 
@@ -153,7 +145,7 @@ Dashboard
 
 <p class="text-2xl text-gray-300 leading-relaxed max-w-3xl">
 
-Manage listings, monitor users, control marketplace activity and respond to chats in real-time.
+Manage listings, users, marketplace messages and moderate the platform in real time.
 
 </p>
 
@@ -168,15 +160,13 @@ Manage listings, monitor users, control marketplace activity and respond to chat
 
 <div class="grid md:grid-cols-4 gap-6">
 
-<div class="bg-white rounded-[35px] shadow-xl border border-gray-100 p-8">
+<div class="bg-white rounded-[35px] shadow-xl p-8">
 
-<div class="flex items-center justify-between mb-5">
+<h2 class="text-gray-500 font-bold text-lg mb-4">
 
-<div class="w-16 h-16 rounded-3xl bg-green-100 flex items-center justify-center text-3xl">
+Items
 
-📦
-
-</div>
+</h2>
 
 <div id="itemsCount"
 class="text-5xl font-black text-gray-900">
@@ -187,23 +177,13 @@ class="text-5xl font-black text-gray-900">
 
 </div>
 
-<p class="text-gray-500 text-lg font-bold">
+<div class="bg-white rounded-[35px] shadow-xl p-8">
 
-Total Items
+<h2 class="text-gray-500 font-bold text-lg mb-4">
 
-</p>
+Users
 
-</div>
-
-<div class="bg-white rounded-[35px] shadow-xl border border-gray-100 p-8">
-
-<div class="flex items-center justify-between mb-5">
-
-<div class="w-16 h-16 rounded-3xl bg-blue-100 flex items-center justify-center text-3xl">
-
-👥
-
-</div>
+h2>
 
 <div id="usersCount"
 class="text-5xl font-black text-gray-900">
@@ -214,26 +194,16 @@ class="text-5xl font-black text-gray-900">
 
 </div>
 
-<p class="text-gray-500 text-lg font-bold">
+<div class="bg-white rounded-[35px] shadow-xl p-8">
 
-Users
+<h2 class="text-gray-500 font-bold text-lg mb-4">
 
-</p>
+Online
 
-</div>
-
-<div class="bg-white rounded-[35px] shadow-xl border border-gray-100 p-8">
-
-<div class="flex items-center justify-between mb-5">
-
-<div class="w-16 h-16 rounded-3xl bg-green-100 flex items-center justify-center text-3xl">
-
-🟢
-
-</div>
+</h2>
 
 <div id="onlineCount"
-class="text-5xl font-black text-gray-900">
+class="text-5xl font-black text-green-600">
 
 0
 
@@ -241,23 +211,13 @@ class="text-5xl font-black text-gray-900">
 
 </div>
 
-<p class="text-gray-500 text-lg font-bold">
+<div class="bg-white rounded-[35px] shadow-xl p-8">
 
-Online Users
+<h2 class="text-gray-500 font-bold text-lg mb-4">
 
-</p>
+Messages
 
-</div>
-
-<div class="bg-white rounded-[35px] shadow-xl border border-gray-100 p-8">
-
-<div class="flex items-center justify-between mb-5">
-
-<div class="w-16 h-16 rounded-3xl bg-yellow-100 flex items-center justify-center text-3xl">
-
-💬
-
-</div>
+</h2>
 
 <div id="messagesCount"
 class="text-5xl font-black text-gray-900">
@@ -268,14 +228,6 @@ class="text-5xl font-black text-gray-900">
 
 </div>
 
-<p class="text-gray-500 text-lg font-bold">
-
-Messages
-
-</p>
-
-</div>
-
 </div>
 
 </section>
@@ -283,33 +235,13 @@ Messages
 <!-- UPLOAD -->
 <section class="max-w-7xl mx-auto px-6 pb-10">
 
-<div class="bg-white rounded-[40px] shadow-2xl border border-gray-100 p-10">
+<div class="bg-white rounded-[40px] shadow-2xl p-10">
 
-<div class="flex items-center justify-between mb-10">
+<h2 class="text-4xl font-black text-gray-900 mb-10">
 
-<div>
-
-<h2 class="text-4xl font-black text-gray-900">
-
-Upload Marketplace Item
+Upload Item
 
 </h2>
-
-<p class="text-gray-500 mt-3 text-lg">
-
-Add products directly to the public marketplace
-
-</p>
-
-</div>
-
-<div class="bg-green-100 text-green-700 px-5 py-3 rounded-2xl font-black">
-
-LIVE
-
-</div>
-
-</div>
 
 <div class="grid md:grid-cols-2 gap-6">
 
@@ -317,57 +249,53 @@ LIVE
 type="text"
 id="name"
 placeholder="Item Name"
-class="border-2 border-gray-200 rounded-2xl px-6 py-5 text-lg outline-none focus:border-green-500 transition-all"/>
+class="border-2 border-gray-200 rounded-2xl px-6 py-5 outline-none focus:border-green-500"/>
 
 <input
 type="text"
 id="price"
 placeholder="Price"
-class="border-2 border-gray-200 rounded-2xl px-6 py-5 text-lg outline-none focus:border-green-500 transition-all"/>
+class="border-2 border-gray-200 rounded-2xl px-6 py-5 outline-none focus:border-green-500"/>
 
 <input
 type="text"
 id="category"
 placeholder="Category"
-class="border-2 border-gray-200 rounded-2xl px-6 py-5 text-lg outline-none focus:border-green-500 transition-all"/>
+class="border-2 border-gray-200 rounded-2xl px-6 py-5 outline-none focus:border-green-500"/>
 
 <input
 type="text"
 id="wanted"
 placeholder="Wanted Item"
-class="border-2 border-gray-200 rounded-2xl px-6 py-5 text-lg outline-none focus:border-green-500 transition-all"/>
+class="border-2 border-gray-200 rounded-2xl px-6 py-5 outline-none focus:border-green-500"/>
 
 <input
 type="text"
 id="sellerName"
 placeholder="Seller Name"
-class="border-2 border-gray-200 rounded-2xl px-6 py-5 text-lg outline-none focus:border-green-500 transition-all"/>
+class="border-2 border-gray-200 rounded-2xl px-6 py-5 outline-none focus:border-green-500"/>
 
 <input
 type="text"
 id="sellerPhone"
 placeholder="Seller Phone"
-class="border-2 border-gray-200 rounded-2xl px-6 py-5 text-lg outline-none focus:border-green-500 transition-all"/>
+class="border-2 border-gray-200 rounded-2xl px-6 py-5 outline-none focus:border-green-500"/>
 
 <textarea
 id="description"
 placeholder="Description"
-class="md:col-span-2 border-2 border-gray-200 rounded-2xl px-6 py-5 text-lg outline-none focus:border-green-500 transition-all min-h-[150px]"></textarea>
-
-<div class="md:col-span-2">
+class="md:col-span-2 border-2 border-gray-200 rounded-2xl px-6 py-5 min-h-[150px] outline-none focus:border-green-500"></textarea>
 
 <input
 type="file"
 id="image"
-class="w-full border-2 border-dashed border-gray-300 rounded-2xl px-6 py-10 bg-gray-50"/>
-
-</div>
+class="md:col-span-2 border-2 border-dashed border-gray-300 rounded-2xl px-6 py-10 bg-gray-50"/>
 
 <button
 onclick="uploadItem()"
-class="md:col-span-2 bg-green-600 hover:bg-green-700 transition-all text-white py-6 rounded-2xl font-black text-xl shadow-2xl">
+class="md:col-span-2 bg-green-600 hover:bg-green-700 transition-all text-white py-6 rounded-2xl font-black text-xl shadow-xl">
 
-Upload Item To Marketplace
+Upload Marketplace Item
 
 </button>
 
@@ -380,25 +308,15 @@ Upload Item To Marketplace
 <!-- USERS -->
 <section class="max-w-7xl mx-auto px-6 pb-10">
 
-<div class="bg-white rounded-[40px] shadow-2xl border border-gray-100 p-10">
+<div class="bg-white rounded-[40px] shadow-2xl p-10">
 
 <div class="flex items-center justify-between mb-10">
 
-<div>
-
 <h2 class="text-4xl font-black text-gray-900">
 
-Marketplace Users
+Users
 
 </h2>
-
-<p class="text-gray-500 mt-3 text-lg">
-
-Monitor online and offline users
-
-</p>
-
-</div>
 
 </div>
 
@@ -412,30 +330,37 @@ class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
 
 </section>
 
+<!-- MESSAGES -->
+<section class="max-w-7xl mx-auto px-6 pb-10">
+
+<div class="bg-white rounded-[40px] shadow-2xl p-10">
+
+<h2 class="text-4xl font-black text-gray-900 mb-10">
+
+Marketplace Messages
+
+</h2>
+
+<div
+id="messagesContainer"
+class="space-y-6">
+
+</div>
+
+</div>
+
+</section>
+
 <!-- ITEMS -->
 <section class="max-w-7xl mx-auto px-6 pb-20">
 
-<div class="bg-white rounded-[40px] shadow-2xl border border-gray-100 p-10">
+<div class="bg-white rounded-[40px] shadow-2xl p-10">
 
-<div class="flex items-center justify-between mb-10">
-
-<div>
-
-<h2 class="text-4xl font-black text-gray-900">
+<h2 class="text-4xl font-black text-gray-900 mb-10">
 
 Marketplace Listings
 
 </h2>
-
-<p class="text-gray-500 mt-3 text-lg">
-
-Manage uploaded products
-
-</p>
-
-</div>
-
-</div>
 
 <div
 id="itemsContainer"
@@ -448,6 +373,10 @@ class="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
 </section>
 
 <script>
+
+document.getElementById("adminName")
+.innerText =
+currentUser.username;
 
 
 // LOGOUT
@@ -480,8 +409,6 @@ window.location.href =
 // LOAD USERS
 async function loadUsers(){
 
-try{
-
 const res =
 await fetch(`${API}/users`);
 
@@ -505,26 +432,17 @@ users.forEach(user => {
 
 container.innerHTML += `
 
-<div class="bg-gray-50 rounded-[30px] p-6 border border-gray-100">
+<div class="bg-gray-50 rounded-[30px] p-6">
 
 <div class="flex items-center gap-5">
 
-<div class="relative">
-
 <img
 src="${user.avatar}"
-class="w-20 h-20 rounded-full object-cover"/>
+class="w-20 h-20 rounded-full"/>
 
-<div class="absolute bottom-0 right-0 w-5 h-5 rounded-full border-4 border-white
-${user.online ? 'bg-green-500' : 'bg-gray-400'}">
+<div class="flex-1">
 
-</div>
-
-</div>
-
-<div>
-
-<h3 class="text-2xl font-black text-gray-900">
+<h3 class="text-2xl font-black">
 
 ${user.username}
 
@@ -536,10 +454,15 @@ ${user.email}
 
 </p>
 
-<p class="mt-2 font-bold
-${user.online ? 'text-green-600' : 'text-gray-500'}">
+<p class="${
+user.online
+? 'text-green-600'
+: 'text-gray-500'
+} font-bold mt-2">
 
-${user.online ? 'Online' : 'Offline'}
+${user.online
+? 'Online'
+: 'Offline'}
 
 </p>
 
@@ -547,25 +470,40 @@ ${user.online ? 'Online' : 'Offline'}
 
 </div>
 
+<button
+onclick="deleteUser('${user._id}')"
+class="mt-6 w-full bg-red-500 hover:bg-red-600 transition-all text-white py-4 rounded-2xl font-black">
+
+Delete User
+
+</button>
+
 </div>
 
 `;
 
 });
 
-}catch(err){
-
-console.log(err);
-
 }
+
+
+// DELETE USER
+async function deleteUser(id){
+
+if(!confirm("Delete this user?"))
+return;
+
+await fetch(`${API}/users/${id}`,{
+method:"DELETE"
+});
+
+loadUsers();
 
 }
 
 
 // LOAD ITEMS
 async function loadItems(){
-
-try{
 
 const res =
 await fetch(`${API}/items`);
@@ -586,7 +524,7 @@ items.forEach(item => {
 
 container.innerHTML += `
 
-<div class="bg-gray-50 rounded-[35px] overflow-hidden border border-gray-100">
+<div class="bg-gray-50 rounded-[35px] overflow-hidden">
 
 <img
 src="${item.image}"
@@ -594,9 +532,9 @@ class="w-full h-72 object-cover"/>
 
 <div class="p-6">
 
-<div class="flex items-center justify-between mb-5">
+<div class="flex items-center justify-between mb-4">
 
-<h2 class="text-3xl font-black text-gray-900">
+<h2 class="text-3xl font-black">
 
 ${item.name}
 
@@ -610,7 +548,7 @@ KSh ${item.price}
 
 </div>
 
-<p class="text-gray-600 leading-relaxed mb-6">
+<p class="text-gray-600 mb-6">
 
 ${item.description}
 
@@ -620,7 +558,7 @@ ${item.description}
 
 <button
 onclick="deleteItem('${item._id}')"
-class="flex-1 bg-red-500 hover:bg-red-600 transition-all text-white py-4 rounded-2xl font-black shadow-xl">
+class="flex-1 bg-red-500 hover:bg-red-600 transition-all text-white py-4 rounded-2xl font-black">
 
 Delete
 
@@ -628,7 +566,7 @@ Delete
 
 <button
 onclick="editPrice('${item._id}')"
-class="flex-1 bg-black hover:bg-gray-900 transition-all text-white py-4 rounded-2xl font-black shadow-xl">
+class="flex-1 bg-black hover:bg-gray-900 transition-all text-white py-4 rounded-2xl font-black">
 
 Update Price
 
@@ -644,11 +582,186 @@ Update Price
 
 });
 
-}catch(err){
+}
 
-console.log(err);
+
+// DELETE ITEM
+async function deleteItem(id){
+
+if(!confirm("Delete this item?"))
+return;
+
+await fetch(`${API}/items/${id}`,{
+method:"DELETE"
+});
+
+loadItems();
 
 }
+
+
+// UPDATE PRICE
+async function editPrice(id){
+
+const price =
+prompt("New Price");
+
+if(!price) return;
+
+await fetch(`${API}/items/${id}`,{
+
+method:"PUT",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+price
+})
+
+});
+
+loadItems();
+
+}
+
+
+// LOAD MESSAGES
+async function loadMessages(){
+
+const res =
+await fetch(`${API}/messages`);
+
+const messages =
+await res.json();
+
+document.getElementById("messagesCount")
+.innerText =
+messages.length;
+
+const container =
+document.getElementById("messagesContainer");
+
+container.innerHTML = "";
+
+messages.reverse().forEach(msg => {
+
+container.innerHTML += `
+
+<div class="bg-gray-50 rounded-[30px] p-6">
+
+<div class="flex items-center justify-between mb-5">
+
+<div>
+
+<h3 class="text-2xl font-black">
+
+${msg.senderName}
+
+</h3>
+
+<p class="text-gray-500">
+
+${new Date(msg.createdAt)
+.toLocaleString()}
+
+</p>
+
+</div>
+
+<button
+onclick="deleteMessage('${msg._id}')"
+class="bg-red-500 hover:bg-red-600 transition-all text-white px-5 py-3 rounded-2xl font-black">
+
+Delete
+
+</button>
+
+</div>
+
+<div class="bg-white rounded-2xl p-5 text-lg text-gray-700 mb-6">
+
+${msg.text}
+
+</div>
+
+<div class="flex gap-4">
+
+<input
+type="text"
+id="reply-${msg._id}"
+placeholder="Reply to user..."
+class="flex-1 border-2 border-gray-200 rounded-2xl px-5 py-4 outline-none focus:border-green-500"/>
+
+<button
+onclick="replyMessage('${msg.senderId}','${msg._id}')"
+class="bg-green-600 hover:bg-green-700 transition-all text-white px-8 rounded-2xl font-black">
+
+Reply
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+
+// REPLY MESSAGE
+async function replyMessage(userId,messageId){
+
+const input =
+document.getElementById(`reply-${messageId}`);
+
+const text =
+input.value;
+
+if(!text) return;
+
+await fetch(`${API}/admin/reply`,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+receiverId:userId,
+
+text
+
+})
+
+});
+
+input.value = "";
+
+alert("Reply sent");
+
+loadMessages();
+
+}
+
+
+// DELETE MESSAGE
+async function deleteMessage(id){
+
+if(!confirm("Delete message?"))
+return;
+
+await fetch(`${API}/messages/${id}`,{
+method:"DELETE"
+});
+
+loadMessages();
 
 }
 
@@ -699,8 +812,6 @@ formData.append(
 document.getElementById("image").files[0]
 );
 
-try{
-
 const res =
 await fetch(`${API}/upload`,{
 
@@ -712,105 +823,13 @@ body:formData
 
 if(res.ok){
 
-alert("Item uploaded successfully");
+alert("Item uploaded");
 
 loadItems();
 
 }else{
 
 alert("Upload failed");
-
-}
-
-}catch(err){
-
-alert("Server error");
-
-}
-
-}
-
-
-// DELETE ITEM
-async function deleteItem(id){
-
-if(!confirm("Delete this item?"))
-return;
-
-try{
-
-await fetch(`${API}/items/${id}`,{
-
-method:"DELETE"
-
-});
-
-loadItems();
-
-}catch(err){
-
-alert("Delete failed");
-
-}
-
-}
-
-
-// UPDATE PRICE
-async function editPrice(id){
-
-const newPrice =
-prompt("Enter new price");
-
-if(!newPrice) return;
-
-try{
-
-await fetch(`${API}/items/${id}`,{
-
-method:"PUT",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify({
-
-price:newPrice
-
-})
-
-});
-
-loadItems();
-
-}catch(err){
-
-alert("Update failed");
-
-}
-
-}
-
-
-// LOAD MESSAGE COUNT
-async function loadMessages(){
-
-try{
-
-const res =
-await fetch(`${API}/messages`);
-
-const messages =
-await res.json();
-
-document.getElementById("messagesCount")
-.innerText =
-messages.length;
-
-}catch(err){
-
-console.log(err);
 
 }
 
