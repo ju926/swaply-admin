@@ -1,129 +1,571 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Swaply Admin</title>
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0"/>
+
+<title>Swaply Admin Portal</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+  font-family:'Inter',sans-serif;
+}
+
+::-webkit-scrollbar{
+  width:6px;
+}
+
+::-webkit-scrollbar-thumb{
+  background:#16a34a;
+  border-radius:20px;
+}
+
+</style>
+
 </head>
 
-<body class="bg-gray-100">
-
-<div class="min-h-screen flex">
-
-<!-- SIDEBAR -->
-<div class="w-72 bg-gray-900 text-white p-8">
-
-<h1 class="text-4xl font-black text-green-500 mb-10">
-Swaply Admin
-</h1>
-
-<nav class="space-y-4">
-
-<a href="#" class="block bg-green-600 px-5 py-4 rounded-2xl">
-Dashboard
-</a>
-
-<a href="#" class="block hover:bg-gray-800 px-5 py-4 rounded-2xl">
-Products
-</a>
-
-<a href="#" class="block hover:bg-gray-800 px-5 py-4 rounded-2xl">
-Marketplace
-</a>
-
-</nav>
-
-</div>
-
-<!-- CONTENT -->
-<div class="flex-1 p-10">
-
-<h2 class="text-5xl font-black mb-10">
-Marketplace Manager
-</h2>
-
-<!-- UPLOAD -->
-<div class="bg-white rounded-3xl shadow-xl p-10 mb-10">
-
-<h3 class="text-3xl font-black mb-6">
-Upload Product
-</h3>
-
-<form id="uploadForm"
-enctype="multipart/form-data"
-class="space-y-5">
-
-<input type="text"
-id="itemName"
-placeholder="Item Name"
-class="w-full p-5 rounded-2xl border"/>
-
-<textarea
-id="itemDesc"
-placeholder="Description"
-class="w-full p-5 rounded-2xl border h-32"></textarea>
-
-<input type="number"
-id="itemPrice"
-placeholder="Price"
-class="w-full p-5 rounded-2xl border"/>
-
-<select
-id="itemCategory"
-class="w-full p-5 rounded-2xl border">
-
-<option>Electronics</option>
-<option>Phones</option>
-<option>Fashion</option>
-<option>Furniture</option>
-<option>Vehicles</option>
-
-</select>
-
-<input
-type="file"
-id="itemImage"
-accept="image/*"
-class="w-full p-5 rounded-2xl border"/>
-
-<button
-type="submit"
-class="w-full bg-green-600 text-white py-5 rounded-2xl font-black">
-
-Upload Product
-
-</button>
-
-</form>
-
-</div>
-
-<!-- PRODUCTS -->
-<div>
-
-<h3 class="text-4xl font-black mb-8">
-Manage Products
-</h3>
-
-<div id="itemsContainer"
-class="grid md:grid-cols-2 gap-8">
-
-</div>
-
-</div>
-
-</div>
-
-</div>
+<body class="bg-gradient-to-br from-gray-100 via-white to-green-50 min-h-screen">
 
 <script>
 
-const API = "https://traderbackend.onrender.com";
+const API =
+"https://traderbackend.onrender.com";
 
+const token =
+localStorage.getItem("token");
+
+const currentUser =
+JSON.parse(localStorage.getItem("user"));
+
+if(!token){
+
+window.location.href =
+"login.html";
+
+}
+
+</script>
+
+<!-- NAVBAR -->
+<header class="sticky top-0 z-50 backdrop-blur-xl bg-white/80 border-b border-gray-200">
+
+<div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+
+<div class="flex items-center gap-4">
+
+<div class="w-14 h-14 rounded-3xl bg-green-600 flex items-center justify-center text-white text-3xl font-black shadow-xl">
+
+S
+
+</div>
+
+<div>
+
+<h1 class="text-3xl font-black text-gray-900">
+
+Swaply Admin
+
+</h1>
+
+<p class="text-gray-500">
+
+Marketplace Control Center
+
+</p>
+
+</div>
+
+</div>
+
+<div class="flex items-center gap-4">
+
+<div class="hidden md:flex items-center gap-3 bg-white px-5 py-3 rounded-2xl shadow-lg border">
+
+<img
+src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+class="w-10 h-10 rounded-full"/>
+
+<div>
+
+<h3 class="font-black text-gray-900">
+
+${currentUser?.username || "Admin"}
+
+</h3>
+
+<p class="text-green-600 text-sm font-bold">
+
+Administrator
+
+</p>
+
+</div>
+
+</div>
+
+<button
+onclick="logout()"
+class="bg-red-500 hover:bg-red-600 transition-all text-white px-6 py-3 rounded-2xl font-black shadow-xl">
+
+Logout
+
+</button>
+
+</div>
+
+</div>
+
+</header>
+
+<!-- HERO -->
+<section class="max-w-7xl mx-auto px-6 pt-12 pb-10">
+
+<div class="bg-gradient-to-r from-black to-gray-900 rounded-[40px] p-10 lg:p-14 text-white shadow-2xl relative overflow-hidden">
+
+<div class="absolute top-0 right-0 w-[500px] h-[500px] bg-green-500/20 rounded-full blur-3xl"></div>
+
+<div class="relative z-10">
+
+<div class="inline-flex items-center gap-3 bg-green-500/20 backdrop-blur-xl px-5 py-3 rounded-full font-bold mb-8">
+
+<div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+
+Admin System Online
+
+</div>
+
+<h1 class="text-5xl lg:text-7xl font-black leading-tight mb-8">
+
+Marketplace
+Dashboard
+
+</h1>
+
+<p class="text-2xl text-gray-300 leading-relaxed max-w-3xl">
+
+Manage listings, monitor users, control marketplace activity and respond to chats in real-time.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- STATS -->
+<section class="max-w-7xl mx-auto px-6 pb-10">
+
+<div class="grid md:grid-cols-4 gap-6">
+
+<div class="bg-white rounded-[35px] shadow-xl border border-gray-100 p-8">
+
+<div class="flex items-center justify-between mb-5">
+
+<div class="w-16 h-16 rounded-3xl bg-green-100 flex items-center justify-center text-3xl">
+
+📦
+
+</div>
+
+<div id="itemsCount"
+class="text-5xl font-black text-gray-900">
+
+0
+
+</div>
+
+</div>
+
+<p class="text-gray-500 text-lg font-bold">
+
+Total Items
+
+</p>
+
+</div>
+
+<div class="bg-white rounded-[35px] shadow-xl border border-gray-100 p-8">
+
+<div class="flex items-center justify-between mb-5">
+
+<div class="w-16 h-16 rounded-3xl bg-blue-100 flex items-center justify-center text-3xl">
+
+👥
+
+</div>
+
+<div id="usersCount"
+class="text-5xl font-black text-gray-900">
+
+0
+
+</div>
+
+</div>
+
+<p class="text-gray-500 text-lg font-bold">
+
+Users
+
+</p>
+
+</div>
+
+<div class="bg-white rounded-[35px] shadow-xl border border-gray-100 p-8">
+
+<div class="flex items-center justify-between mb-5">
+
+<div class="w-16 h-16 rounded-3xl bg-green-100 flex items-center justify-center text-3xl">
+
+🟢
+
+</div>
+
+<div id="onlineCount"
+class="text-5xl font-black text-gray-900">
+
+0
+
+</div>
+
+</div>
+
+<p class="text-gray-500 text-lg font-bold">
+
+Online Users
+
+</p>
+
+</div>
+
+<div class="bg-white rounded-[35px] shadow-xl border border-gray-100 p-8">
+
+<div class="flex items-center justify-between mb-5">
+
+<div class="w-16 h-16 rounded-3xl bg-yellow-100 flex items-center justify-center text-3xl">
+
+💬
+
+</div>
+
+<div id="messagesCount"
+class="text-5xl font-black text-gray-900">
+
+0
+
+</div>
+
+</div>
+
+<p class="text-gray-500 text-lg font-bold">
+
+Messages
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- UPLOAD -->
+<section class="max-w-7xl mx-auto px-6 pb-10">
+
+<div class="bg-white rounded-[40px] shadow-2xl border border-gray-100 p-10">
+
+<div class="flex items-center justify-between mb-10">
+
+<div>
+
+<h2 class="text-4xl font-black text-gray-900">
+
+Upload Marketplace Item
+
+</h2>
+
+<p class="text-gray-500 mt-3 text-lg">
+
+Add products directly to the public marketplace
+
+</p>
+
+</div>
+
+<div class="bg-green-100 text-green-700 px-5 py-3 rounded-2xl font-black">
+
+LIVE
+
+</div>
+
+</div>
+
+<div class="grid md:grid-cols-2 gap-6">
+
+<input
+type="text"
+id="name"
+placeholder="Item Name"
+class="border-2 border-gray-200 rounded-2xl px-6 py-5 text-lg outline-none focus:border-green-500 transition-all"/>
+
+<input
+type="text"
+id="price"
+placeholder="Price"
+class="border-2 border-gray-200 rounded-2xl px-6 py-5 text-lg outline-none focus:border-green-500 transition-all"/>
+
+<input
+type="text"
+id="category"
+placeholder="Category"
+class="border-2 border-gray-200 rounded-2xl px-6 py-5 text-lg outline-none focus:border-green-500 transition-all"/>
+
+<input
+type="text"
+id="wanted"
+placeholder="Wanted Item"
+class="border-2 border-gray-200 rounded-2xl px-6 py-5 text-lg outline-none focus:border-green-500 transition-all"/>
+
+<input
+type="text"
+id="sellerName"
+placeholder="Seller Name"
+class="border-2 border-gray-200 rounded-2xl px-6 py-5 text-lg outline-none focus:border-green-500 transition-all"/>
+
+<input
+type="text"
+id="sellerPhone"
+placeholder="Seller Phone"
+class="border-2 border-gray-200 rounded-2xl px-6 py-5 text-lg outline-none focus:border-green-500 transition-all"/>
+
+<textarea
+id="description"
+placeholder="Description"
+class="md:col-span-2 border-2 border-gray-200 rounded-2xl px-6 py-5 text-lg outline-none focus:border-green-500 transition-all min-h-[150px]"></textarea>
+
+<div class="md:col-span-2">
+
+<input
+type="file"
+id="image"
+class="w-full border-2 border-dashed border-gray-300 rounded-2xl px-6 py-10 bg-gray-50"/>
+
+</div>
+
+<button
+onclick="uploadItem()"
+class="md:col-span-2 bg-green-600 hover:bg-green-700 transition-all text-white py-6 rounded-2xl font-black text-xl shadow-2xl">
+
+Upload Item To Marketplace
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- USERS -->
+<section class="max-w-7xl mx-auto px-6 pb-10">
+
+<div class="bg-white rounded-[40px] shadow-2xl border border-gray-100 p-10">
+
+<div class="flex items-center justify-between mb-10">
+
+<div>
+
+<h2 class="text-4xl font-black text-gray-900">
+
+Marketplace Users
+
+</h2>
+
+<p class="text-gray-500 mt-3 text-lg">
+
+Monitor online and offline users
+
+</p>
+
+</div>
+
+</div>
+
+<div
+id="usersContainer"
+class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ITEMS -->
+<section class="max-w-7xl mx-auto px-6 pb-20">
+
+<div class="bg-white rounded-[40px] shadow-2xl border border-gray-100 p-10">
+
+<div class="flex items-center justify-between mb-10">
+
+<div>
+
+<h2 class="text-4xl font-black text-gray-900">
+
+Marketplace Listings
+
+</h2>
+
+<p class="text-gray-500 mt-3 text-lg">
+
+Manage uploaded products
+
+</p>
+
+</div>
+
+</div>
+
+<div
+id="itemsContainer"
+class="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
+
+</div>
+
+</div>
+
+</section>
+
+<script>
+
+
+// LOGOUT
+async function logout(){
+
+try{
+
+await fetch(`${API}/logout`,{
+
+method:"POST",
+
+headers:{
+Authorization:token
+}
+
+});
+
+}catch(err){}
+
+localStorage.removeItem("token");
+
+localStorage.removeItem("user");
+
+window.location.href =
+"login.html";
+
+}
+
+
+// LOAD USERS
+async function loadUsers(){
+
+try{
+
+const res =
+await fetch(`${API}/users`);
+
+const users =
+await res.json();
+
+document.getElementById("usersCount")
+.innerText =
+users.length;
+
+document.getElementById("onlineCount")
+.innerText =
+users.filter(u => u.online).length;
+
+const container =
+document.getElementById("usersContainer");
+
+container.innerHTML = "";
+
+users.forEach(user => {
+
+container.innerHTML += `
+
+<div class="bg-gray-50 rounded-[30px] p-6 border border-gray-100">
+
+<div class="flex items-center gap-5">
+
+<div class="relative">
+
+<img
+src="${user.avatar}"
+class="w-20 h-20 rounded-full object-cover"/>
+
+<div class="absolute bottom-0 right-0 w-5 h-5 rounded-full border-4 border-white
+${user.online ? 'bg-green-500' : 'bg-gray-400'}">
+
+</div>
+
+</div>
+
+<div>
+
+<h3 class="text-2xl font-black text-gray-900">
+
+${user.username}
+
+</h3>
+
+<p class="text-gray-500">
+
+${user.email}
+
+</p>
+
+<p class="mt-2 font-bold
+${user.online ? 'text-green-600' : 'text-gray-500'}">
+
+${user.online ? 'Online' : 'Offline'}
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}catch(err){
+
+console.log(err);
+
+}
+
+}
+
+
+// LOAD ITEMS
 async function loadItems(){
+
+try{
 
 const res =
 await fetch(`${API}/items`);
@@ -131,52 +573,64 @@ await fetch(`${API}/items`);
 const items =
 await res.json();
 
+document.getElementById("itemsCount")
+.innerText =
+items.length;
+
 const container =
 document.getElementById("itemsContainer");
 
 container.innerHTML = "";
 
-items.forEach(item=>{
+items.forEach(item => {
 
 container.innerHTML += `
 
-<div class="bg-white rounded-3xl overflow-hidden shadow-xl">
+<div class="bg-gray-50 rounded-[35px] overflow-hidden border border-gray-100">
 
 <img
 src="${item.image}"
-class="w-full h-64 object-cover"/>
+class="w-full h-72 object-cover"/>
 
 <div class="p-6">
 
-<input
-id="name-${item._id}"
-value="${item.name}"
-class="w-full p-3 border rounded-xl mb-3"/>
+<div class="flex items-center justify-between mb-5">
 
-<textarea
-id="desc-${item._id}"
-class="w-full p-3 border rounded-xl mb-3">${item.description}</textarea>
+<h2 class="text-3xl font-black text-gray-900">
 
-<input
-id="price-${item._id}"
-value="${item.price || 0}"
-class="w-full p-3 border rounded-xl mb-3"/>
+${item.name}
 
-<div class="grid grid-cols-2 gap-3">
+</h2>
+
+<div class="text-2xl font-black text-green-600">
+
+KSh ${item.price}
+
+</div>
+
+</div>
+
+<p class="text-gray-600 leading-relaxed mb-6">
+
+${item.description}
+
+</p>
+
+<div class="flex gap-4">
 
 <button
-onclick="updateItem('${item._id}')"
-class="bg-blue-600 text-white py-3 rounded-xl font-black">
+onclick="deleteItem('${item._id}')"
+class="flex-1 bg-red-500 hover:bg-red-600 transition-all text-white py-4 rounded-2xl font-black shadow-xl">
 
-Update
+Delete
 
 </button>
 
 <button
-onclick="deleteItem('${item._id}')"
-class="bg-red-600 text-white py-3 rounded-xl font-black">
+onclick="editPrice('${item._id}')"
+class="flex-1 bg-black hover:bg-gray-900 transition-all text-white py-4 rounded-2xl font-black shadow-xl">
 
-Delete
+Update Price
 
 </button>
 
@@ -190,11 +644,127 @@ Delete
 
 });
 
+}catch(err){
+
+console.log(err);
+
 }
+
+}
+
+
+// UPLOAD ITEM
+async function uploadItem(){
+
+const formData =
+new FormData();
+
+formData.append(
+"name",
+document.getElementById("name").value
+);
+
+formData.append(
+"price",
+document.getElementById("price").value
+);
+
+formData.append(
+"category",
+document.getElementById("category").value
+);
+
+formData.append(
+"wanted",
+document.getElementById("wanted").value
+);
+
+formData.append(
+"sellerName",
+document.getElementById("sellerName").value
+);
+
+formData.append(
+"sellerPhone",
+document.getElementById("sellerPhone").value
+);
+
+formData.append(
+"description",
+document.getElementById("description").value
+);
+
+formData.append(
+"image",
+document.getElementById("image").files[0]
+);
+
+try{
+
+const res =
+await fetch(`${API}/upload`,{
+
+method:"POST",
+
+body:formData
+
+});
+
+if(res.ok){
+
+alert("Item uploaded successfully");
 
 loadItems();
 
-async function updateItem(id){
+}else{
+
+alert("Upload failed");
+
+}
+
+}catch(err){
+
+alert("Server error");
+
+}
+
+}
+
+
+// DELETE ITEM
+async function deleteItem(id){
+
+if(!confirm("Delete this item?"))
+return;
+
+try{
+
+await fetch(`${API}/items/${id}`,{
+
+method:"DELETE"
+
+});
+
+loadItems();
+
+}catch(err){
+
+alert("Delete failed");
+
+}
+
+}
+
+
+// UPDATE PRICE
+async function editPrice(id){
+
+const newPrice =
+prompt("Enter new price");
+
+if(!newPrice) return;
+
+try{
 
 await fetch(`${API}/items/${id}`,{
 
@@ -206,75 +776,55 @@ headers:{
 
 body:JSON.stringify({
 
-name:document.getElementById(`name-${id}`).value,
-
-description:document.getElementById(`desc-${id}`).value,
-
-price:document.getElementById(`price-${id}`).value
+price:newPrice
 
 })
 
 });
 
-alert("Updated");
-
 loadItems();
+
+}catch(err){
+
+alert("Update failed");
 
 }
 
-async function deleteItem(id){
+}
 
-await fetch(`${API}/items/${id}`,{
 
-method:"DELETE"
+// LOAD MESSAGE COUNT
+async function loadMessages(){
 
-});
+try{
 
-alert("Deleted");
+const res =
+await fetch(`${API}/messages`);
 
-loadItems();
+const messages =
+await res.json();
+
+document.getElementById("messagesCount")
+.innerText =
+messages.length;
+
+}catch(err){
+
+console.log(err);
 
 }
 
-document.getElementById("uploadForm")
-.addEventListener("submit", async(e)=>{
+}
 
-e.preventDefault();
 
-const formData = new FormData();
-
-formData.append("name",
-document.getElementById("itemName").value);
-
-formData.append("description",
-document.getElementById("itemDesc").value);
-
-formData.append("price",
-document.getElementById("itemPrice").value);
-
-formData.append("category",
-document.getElementById("itemCategory").value);
-
-formData.append("image",
-document.getElementById("itemImage").files[0]);
-
-await fetch(`${API}/upload`,{
-
-method:"POST",
-
-body:formData
-
-});
-
-alert("Uploaded");
+// INITIAL LOAD
+loadUsers();
 
 loadItems();
 
-document.getElementById("uploadForm").reset();
-
-});
+loadMessages();
 
 </script>
 
 </body>
-</html>
+  </html>
